@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Счетоводна къща НАЙК - 20+ години опит в счетоводството</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-red: #c41e3a;
+            --accent-green: #228B22;
+            --light-bg: #f8f9fa;
+            --dark-text: #2c3e50;
+            --white: #ffffff;
+            --shadow: 0 5px 15px rgba(0,0,0,0.1);
+            --soft-green-bg: rgba(34,139,34,0.08);
+            --soft-gray: #9aa0a6;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--dark-text);
+            background: var(--white);
+        }
+
+        /* Header & Navigation */
+        header {
+            background: rgba(255,255,255,0.72);
+            backdrop-filter: blur(10px) saturate(140%);
+            -webkit-backdrop-filter: blur(10px) saturate(140%);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            border-bottom: 1px solid rgba(0,0,0,0.06);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary-red);
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .logo::before {
+            content: "🍀";
+            font-size: 2rem;
+            margin-right: 10px;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--dark-text);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-red);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--primary-red);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            transform: scaleX(1);
+        }
+
+        /* Hero Section */
+        .hero {
+            margin-top: 80px;
+            background: radial-gradient(1200px 600px at 10% 0%, #fafafa 0%, #ffffff 55%), linear-gradient(135deg, #f7f7f7 0%, #ffffff 100%);
+            padding: 80px 5%;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: "🍀";
+            position: absolute;
+            font-size: 300px;
+            opacity: 0.05;
+            left: -50px;
+            top: -50px;
+            animation: float 20s infinite;
+        }
+
+        .hero::after {
+            content: "🍀";
+            position: absolute;
+            font-size: 160px;
+            opacity: 0.06;
+            right: -40px;
+            bottom: -30px;
+            transform: rotate(-12deg);
+            animation: float 26s infinite reverse;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(10deg); }
+        }
+
+        .hero h1 {
+            font-size: 3.25rem;
+            color: #000000; /* заглавието в черно */
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s;
+            letter-spacing: -0.02em;
+            line-height: 1.15;
+        }
+
+        .hero .subtitle {
+            font-size: 1.5rem;
+            color: var(--dark-text);
+            margin-bottom: 0.5rem;
+            animation: fadeInUp 1s 0.2s both;
+            opacity: 0.9;
+        }
+
+        /* Ред с балони */
+        .hero .badges {
+            display: inline-flex;
+            gap: 12px;
+            align-items: center;
+            margin: 18px 0 6px 0;
+            animation: fadeInUp 1s 0.35s both;
+        }
+
+        .hero .experience {
+            display: inline-block;
+            background: var(--primary-red);
+            color: var(--white);
+            padding: 8px 18px; /* по-малък балон */
+            border-radius: 50px;
+            font-size: 1rem;   /* по-малък размер */
+            font-weight: bold;
+            letter-spacing: 0.3px;
+            box-shadow: var(--shadow);
+            white-space: nowrap;
+        }
+
+        .hero .family-badge {
+            display: inline-block;
+            color: var(--accent-green);
+            background: var(--soft-green-bg); /* прозрачно зелено */
+            border: 2px solid var(--accent-green);
+            padding: 8px 18px;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: bold;
+            letter-spacing: 0.3px;
+            backdrop-filter: saturate(120%);
+            white-space: nowrap;
+        }
+
+        .hero .tagline {
+            font-style: italic;
+            color: #666;
+            animation: fadeInUp 1s 0.6s both;
+            max-width: 820px;
+            margin: 8px auto 0 auto;
+        }
+
+        /* Бутони */
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 14px;
+            margin-top: 18px;
+            animation: fadeInUp 1s 0.8s both;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 14px 26px; /* по-големи от балоните */
+            font-size: 1.05rem;
+            font-weight: 700;
+            border-radius: 12px;
+            border: 2px solid transparent;
+            cursor: pointer;
+            text-decoration: none;
+            transition: transform 0.18s ease, box-shadow 0.18s ease, background-color 0.18s ease, color 0.18s ease, border-color 0.18s ease, opacity 0.18s ease;
+            will-change: transform;
+            user-select: none;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 24px rgba(0,0,0,0.12);
+        }
+
+        .btn:active {
+            transform: translateY(-1px) scale(0.99);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+        }
+
+        .btn-primary {
+            background: linear-gradient(180deg, #d72343 0%, #c41e3a 100%);
+            color: var(--white);
+            border-color: #bf1d38;
+            box-shadow: 0 8px 18px rgba(196,30,58,0.25);
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(180deg, #c71f3b 0%, #aa1a32 100%);
+            border-color: #9f192f;
+            box-shadow: 0 10px 22px rgba(196,30,58,0.32);
+        }
+
+        .btn-primary:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--dark-text);
+            border-color: var(--soft-gray); /* сив контур по подразбиране */
+            box-shadow: 0 0 0 rgba(0,0,0,0);
+        }
+
+        .btn-outline:hover {
+            color: var(--accent-green);
+            border-color: var(--accent-green); /* очертава се в зелено при hover */
+            background: var(--soft-green-bg);
+            box-shadow: 0 8px 18px rgba(34,139,34,0.18);
+        }
+
+        .btn-outline:active {
+            transform: translateY(-1px) scale(0.995);
+        }
+
+        .btn:focus-visible {
+            outline: none;
+            box-shadow: 0 0 0 4px rgba(196,30,58,0.15), 0 0 0 7px rgba(196,30,58,0.08);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+      
+      /* Partners Carousel */
+        .partners {
+            padding: 40px 5%;
+            background: var(--white);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .partners-title {
+            text-align: center;
+            color: var(--primary-red);
+            margin-bottom: 2rem;
+            letter-spacing: 0.02em;
+        }
+
+        .partners-track {
+            display: flex;
+            gap: 4rem;
+            animation: scroll 20s linear infinite;
+            will-change: transform;
+        }
+
+        .partners::before,
+        .partners::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            width: 80px;
+            height: 100%;
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        .partners::before { left: 0; background: linear-gradient(90deg, var(--white), rgba(255,255,255,0)); }
+        .partners::after { right: 0; background: linear-gradient(270deg, var(--white), rgba(255,255,255,0)); }
+
+        @keyframes scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        .partner-logo {
+            min-width: 150px;
+            height: 80px;
+            background: var(--light-bg);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: #777;
+            border: 1px solid rgba(0,0,0,0.06);
+            filter: grayscale(100%) contrast(1.05) brightness(0.95);
+            transition: transform 0.25s ease, filter 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .partner-logo:hover {
+            transform: translateY(-3px);
+            filter: grayscale(0%);
+            box-shadow: 0 10px 24px rgba(0,0,0,0.08);
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .hero h1 { font-size: 3rem; }
+        }
+
+        @media (max-width: 768px) {
+            nav { padding: 0.8rem 5%; }
+            .nav-links { gap: 1.2rem; }
+            .hero { padding: 64px 6%; }
+            .hero h1 { font-size: 2.4rem; }
+            .hero .subtitle { font-size: 1.2rem; }
+            .cta-buttons { gap: 10px; }
+            .btn { padding: 12px 22px; font-size: 1rem; }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 { font-size: 2rem; }
+            .hero .badges { gap: 8px; }
+            .hero .experience, .hero .family-badge { padding: 6px 14px; font-size: 0.95rem; }
+            .btn { width: 100%; }
+        }
+
+        /* Motion preferences */
+        @media (prefers-reduced-motion: reduce) {
+            * { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; scroll-behavior: auto !important; }
+        }
+
+      
+      
+      
+       </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav>
+            <a href="#home" class="logo">НАЙК</a>
+            <ul class="nav-links">
+                <li><a href="#home">Начало</a></li>
+                <li><a href="#services">Услуги</a></li>
+                <li><a href="#about">За нас</a></li>
+                <li><a href="#calculator">Цени</a></li>
+                <li><a href="#contact">Контакти</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <h1>Счетоводна къща НАЙК</h1>
+        <p class="subtitle">Поверете счетоводството на експерти и се фокусирайте върху растежа</p>
+
+        <div class="badges">
+            <span class="experience">20+ ГОДИНИ ОПИТ</span>
+            <span class="family-badge">Семейна счетоводна къща</span>
+        </div>
+
+        <p class="tagline">Семейна счетоводна къща със стабилност и доверие пред институции и клиенти</p>
+
+        <div class="cta-buttons">
+            <a href="#contact" class="btn btn-primary">Свържете се с нас →</a>
+            <a href="#services" class="btn btn-outline">Разгледайте услугите ↓</a>
+        </div>
+    </section>
+
+    <!-- Partners Carousel -->
+    <section class="partners">
+        <h3 class="partners-title">Нашите партньори ни се доверяват</h3>
+        <div class="partners-track">
+            <div class="partner-logo">Партньор 1</div>
+            <div class="partner-logo">Партньор 2</div>
+            <div class="partner-logo">Партньор 3</div>
+            <div class="partner-logo">Партньор 4</div>
+            <div class="partner-logo">Партньор 5</div>
+            <div class="partner-logo">Партньор 6</div>
+            <div class="partner-logo">Партньор 1</div>
+            <div class="partner-logo">Партньор 2</div>
+            <div class="partner-logo">Партньор 3</div>
+            <div class="partner-logo">Партньор 4</div>
+            <div class="partner-logo">Партньор 5</div>
+            <div class="partner-logo">Партньор 6</div>
+        </div>
+    </section>
+</body>
+</html>
