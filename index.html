@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Счетоводна къща НАЙК — 20+ години опит</title>
+  <meta name="description" content="Счетоводна къща НАЙК — професионално счетоводно обслужване, данъчни консултации, регистрация на фирми и онлайн услуги. 20+ години доверие и резултати."/>
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; }
+
+    :root{
+      --primary-red:#b91c1c;
+      --dark-red:#7f1d1d;
+      --accent-green:#2d5f3f;
+      --light-green:rgba(45,95,63,.1);
+      --light-bg:#fafbfc;
+      --lighter-bg:#f8f9fa;
+      --dark:#1f2937;
+      --dark-blue:#111827;
+      --dark-text:#1a1a1a;
+      --medium-text:#4a5568;
+      --light-text:#718096;
+      --gray:#6b7280;
+      --light-gray:#f3f4f6;
+      --white:#fff;
+      --gold:#fbbf24;
+      --gradient-red:linear-gradient(135deg,#b91c1c 0%,#7f1d1d 100%);
+      --gradient-dark:linear-gradient(180deg,#1f2937 0%,#111827 100%);
+      --shadow-light:0 2px 8px rgba(0,0,0,.06);
+      --shadow-medium:0 6px 24px rgba(0,0,0,.10);
+      --radius-12:12px; --radius-16:16px; --radius-20:20px;
+      --transition:.3s ease;
+    }
+
+    body{
+      font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Oxygen,Ubuntu,Cantarell,sans-serif;
+      line-height:1.7; color:var(--dark-text); background:var(--white);
+    }
+
+    header{ position:fixed; inset:0 0 auto 0; z-index:1000; }
+    nav{
+      background:rgba(255,255,255,.98);
+      backdrop-filter:blur(14px);
+      border-bottom:1px solid rgba(0,0,0,.05);
+      transition:all .35s cubic-bezier(.4,0,.2,1);
+    }
+    nav.scrolled{ box-shadow:0 10px 30px rgba(0,0,0,.08); }
+    .nav-container{
+      max-width:1200px; margin:0 auto; padding:1rem 2rem;
+      display:flex; align-items:center; justify-content:space-between;
+    }
+    .logo-container{ display:inline-flex; align-items:center; gap:.8rem; text-decoration:none; }
+    .logo-svg{ width:42px; height:42px; transition:transform var(--transition); }
+    .logo-container:hover .logo-svg{ transform:rotate(8deg) scale(1.02); }
+    .logo-text{ display:flex; flex-direction:column; }
+    .logo-name{ font-size:1.25rem; font-weight:800; color:var(--dark-red); letter-spacing:.2px; }
+    .logo-subtitle{ font-size:.72rem; color:var(--gray); letter-spacing:.8px; text-transform:uppercase; }
+    .nav-menu{ list-style:none; display:flex; gap:2rem; align-items:center; }
+    .nav-link{
+      color:var(--dark); text-decoration:none; font-weight:600; font-size:.95rem; position:relative;
+    }
+    .nav-link:hover{ color:var(--primary-red); }
+    .nav-link::after{
+      content:""; position:absolute; left:50%; bottom:-8px; width:28px; height:2px;
+      background:var(--primary-red); transform:translateX(-50%) scaleX(0); transition:transform .25s ease;
+    }
+    .nav-link:hover::after{ transform:translateX(-50%) scaleX(1); }
+    .nav-cta{
+      background:var(--gradient-red); color:#fff; text-decoration:none;
+      padding:.65rem 1.4rem; border-radius:999px; font-weight:800; font-size:.9rem;
+      box-shadow:0 6px 20px rgba(185,28,28,.25); transition:transform .2s, box-shadow .3s;
+    }
+    .nav-cta:hover{ transform:translateY(-2px); box-shadow:0 10px 28px rgba(185,28,28,.32); }
+
+    .hamburger{ display:none; border:0; background:transparent; width:40px; height:40px; border-radius:50%; }
+    .hamburger span,.hamburger::before,.hamburger::after{
+      content:""; display:block; height:2px; background:var(--dark); margin:7px 8px; transition:all .25s;
+    }
+    .hamburger[aria-expanded="true"] span{ opacity:0; }
+    .hamburger[aria-expanded="true"]::before{ transform:translateY(9px) rotate(45deg); }
+    .hamburger[aria-expanded="true"]::after{ transform:translateY(-9px) rotate(-45deg); }
+
+    @media (max-width:960px){
+      .nav-menu{ display:none; }
+      .nav-menu.open{
+        position:absolute; left:0; right:0; top:64px; background:rgba(255,255,255,.98);
+        display:grid; gap:1rem; padding:1rem 2rem 1.4rem; border-bottom:1px solid rgba(0,0,0,.06);
+      }
+      .hamburger{ display:inline-block; }
+    }
+
+    .hero{
+      margin-top:72px; background:linear-gradient(135deg,#fff 0%,var(--light-bg) 50%,#fff 100%);
+      padding:110px 6% 90px; min-height:78vh; display:grid; place-items:center; text-align:center; position:relative; overflow:hidden;
+    }
+    .hero::before,.hero::after{
+      content:"🍀"; position:absolute; opacity:.05; filter:blur(.6px);
+      user-select:none; pointer-events:none; animation:float 22s infinite ease-in-out;
+    }
+    .hero::before{ font-size:360px; left:-80px; top:-120px; }
+    .hero::after{ font-size:180px; right:-40px; bottom:-40px; animation-direction:reverse; }
+    @keyframes float{ 0%,100%{transform:translateY(0) rotate(0)} 50%{transform:translateY(-18px) rotate(4deg)} }
+    .hero-content{ max-width:820px; }
+    .hero h1{
+      font-size:clamp(2.2rem,5vw,3.6rem); line-height:1.15; font-weight:800; color:var(--dark-text);
+      margin-bottom:1rem; animation:fadeInUp .8s ease both;
+    }
+    .subtitle{ font-size:clamp(1.05rem,2.5vw,1.25rem); color:var(--medium-text); margin-bottom:.5rem; animation:fadeInUp .8s .06s both; }
+    .badges{ display:flex; justify-content:center; flex-wrap:wrap; gap:.9rem; margin:2rem 0; }
+    .badge{ display:inline-flex; align-items:center; padding:10px 22px; border-radius:999px; font-weight:800; font-size:.9rem; border:1.5px solid rgba(0,0,0,.05); letter-spacing:.3px; }
+    .family-business{ background:var(--light-green); color:var(--accent-green); border-color:rgba(45,95,63,.18); }
+    .experience{ background:var(--primary-red); color:#fff; box-shadow:var(--shadow-medium); }
+    .tagline{ color:var(--light-text); max-width:620px; margin:0 auto 2.2rem; line-height:1.8; animation:fadeInUp .8s .12s both; }
+    .cta-buttons{ display:flex; justify-content:center; gap:1rem; flex-wrap:wrap; animation:fadeInUp .8s .18s both; }
+    .btn{ display:inline-flex; align-items:center; justify-content:center; gap:.5rem; min-width:200px; padding:14px 26px; border-radius:999px; font-weight:800; letter-spacing:.3px; border:2px solid transparent; text-decoration:none; transition:all .25s; }
+    .btn-primary{ background:linear-gradient(135deg,var(--primary-red),#a61e32); color:#fff; box-shadow:var(--shadow-medium); }
+    .btn-primary:hover{ transform:translateY(-3px); box-shadow:0 10px 32px rgba(185,28,28,.3); }
+    .btn-secondary{ background:#fff; color:var(--accent-green); border-color:rgba(0,0,0,.08); }
+    .btn-secondary:hover{ transform:translateY(-3px); box-shadow:0 8px 28px rgba(45,95,63,.18); }
+    @keyframes fadeInUp{ from{opacity:0; transform:translateY(26px)} to{opacity:1; transform:translateY(0)} }
+
+    .trust-section{ background:var(--light-gray); padding:2.6rem 0; border-bottom:1px solid rgba(0,0,0,.05); }
+    .trust-container{ max-width:1200px; margin:0 auto; padding:0 2rem; display:grid; grid-template-columns:repeat(4,1fr); gap:1.6rem; }
+    .trust-item{ display:flex; align-items:center; gap:1rem; }
+    .trust-icon{ width:48px; height:48px; border-radius:12px; display:grid; place-items:center; background:#fff; color:var(--primary-red); box-shadow:var(--shadow-light); font-size:1.3rem; }
+    .trust-label{ font-size:.8rem; color:var(--gray); letter-spacing:.5px; text-transform:uppercase; }
+    .trust-value{ font-weight:800; color:var(--dark); }
+
+    .partners{ padding:70px 6% 60px; background:var(--lighter-bg); border-top:1px solid rgba(0,0,0,.05); }
+    .partners-title{ text-align:center; color:var(--medium-text); margin-bottom:2.2rem; font-weight:700; }
+    .partners-container{ position:relative; overflow:hidden; mask:linear-gradient(90deg,transparent,#fff 10%,#fff 90%,transparent); -webkit-mask:linear-gradient(90deg,transparent,#fff 10%,#fff 90%,transparent); }
+    .partners-track{ display:flex; gap:2rem; animation:scroll 32s linear infinite; }
+    .partner-logo{
+      min-width:170px; height:84px; display:flex; align-items:center; justify-content:center;
+      background:#fff; border:1px solid rgba(0,0,0,.06); color:var(--light-text);
+      border-radius:var(--radius-12); transition:transform .2s, box-shadow .25s;
+    }
+    .partner-logo:hover{ transform:translateY(-2px); box-shadow:var(--shadow-light); }
+    @keyframes scroll{ 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
+    @media (prefers-reduced-motion:reduce){ .partners-track{ animation:none; } }
+
+    .services{ padding:5.5rem 0; background:#fff; }
+    .services-container{ max-width:1200px; margin:0 auto; padding:0 2rem; }
+    .section-header{ text-align:center; max-width:820px; margin:0 auto 3.2rem; }
+    .section-label{ color:var(--primary-red); font-weight:800; font-size:.9rem; letter-spacing:1px; text-transform:uppercase; margin-bottom:.8rem; }
+    .section-title{ font-size:clamp(1.8rem,3.5vw,2.4rem); font-weight:800; color:var(--dark); margin-bottom:.6rem; }
+    .section-description{ color:var(--gray); font-style:italic; }
+    .services-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(320px,1fr)); gap:1.6rem; }
+    .service-card-premium{
+      background:#fff; border:1px solid rgba(0,0,0,.08); border-radius:var(--radius-20); padding:2rem; position:relative; cursor:pointer;
+      transition:transform .25s, box-shadow .3s, border-color .2s; overflow:hidden;
+    }
+    .service-card-premium::before{
+      content:""; position:absolute; left:0; right:0; top:0; height:3px; background:var(--gradient-red);
+      transform:scaleX(0); transform-origin:left; transition:transform .35s ease;
+    }
+    .service-card-premium:hover{ transform:translateY(-6px); border-color:transparent; box-shadow:var(--shadow-medium); }
+    .service-card-premium:hover::before{ transform:scaleX(1); }
+    .service-icon-premium{
+      width:64px; height:64px; border-radius:14px; display:grid; place-items:center; font-size:1.6rem;
+      background:rgba(185,28,28,.10); margin-bottom:1.1rem; transition:all .25s;
+    }
+    .service-card-premium:hover .service-icon-premium{ background:var(--gradient-red); color:#fff; transform:scale(1.06); }
+    .service-title-premium{ font-weight:800; font-size:1.25rem; color:var(--dark); margin-bottom:.6rem; }
+    .service-desc-premium{ color:var(--gray); }
+    .service-link{ display:inline-flex; gap:.5rem; color:var(--primary-red); font-weight:800; margin-top:1rem; pointer-events:none; }
+
+    .modal{ display:none; position:fixed; inset:0; background:rgba(0,0,0,.7); z-index:2000; }
+    .modal[aria-hidden="false"]{ display:block; animation:fadeIn .25s ease; }
+    .modal-content{
+      background:#fff; max-width:820px; margin:56px auto; padding:1.6rem; border-radius:14px;
+      max-height:80vh; overflow:auto; animation:slideIn .25s ease;
+    }
+    .close-modal{ float:right; font-size:2rem; line-height:1; cursor:pointer; color:var(--light-text); border:0; background:transparent; }
+    .close-modal:hover{ color:var(--primary-red); }
+    @keyframes fadeIn{ from{opacity:0} to{opacity:1} }
+    @keyframes slideIn{ from{transform:translateY(-30px); opacity:0} to{transform:translateY(0); opacity:1} }
+
+    .about{ padding:4rem 2rem; background:var(--light-bg); }
+    .about .container{ max-width:1200px; margin:0 auto; }
+    .about-content{ display:grid; grid-template-columns:1fr 1fr; gap:2.4rem; align-items:start; }
+    .about-text h3{ color:var(--primary-red); margin-bottom:.8rem; }
+    .about-text p{ margin-bottom:.8rem; color:var(--medium-text); }
+    .features-list{ list-style:none; margin-top:1.2rem; }
+    .features-list li{ display:flex; align-items:center; gap:.6rem; padding:.35rem 0; }
+    .features-list li::before{ content:'✓'; color:var(--accent-green); font-weight:800; }
+    .timeline{ position:relative; padding:1rem 0; }
+    .timeline::before{ content:""; position:absolute; left:50%; top:0; bottom:0; width:2px; background:var(--primary-red); }
+    .timeline-item{ position:relative; margin:1.2rem 0; text-align:right; padding-right:58%; }
+    .timeline-item:nth-child(even){ text-align:left; padding-right:0; padding-left:58%; }
+    .timeline-dot{ position:absolute; left:50%; transform:translateX(-50%); width:16px; height:16px; background:var(--primary-red); border-radius:50%; border:3px solid #fff; }
+
+    .calculator{ padding:4rem 2rem; background:#fff; }
+    .calculator .container{ max-width:1000px; margin:0 auto; }
+    .calc-form{ background:var(--light-bg); padding:1.6rem; border-radius:14px; box-shadow:var(--shadow-light); }
+    .form-section{ margin-bottom:1.4rem; }
+    .form-section h3{ color:var(--primary-red); margin-bottom:.8rem; display:flex; align-items:center; gap:.5rem; }
+    .form-section h3::before{ content:'🍀'; font-size:1.1rem; }
+    .form-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:1rem; }
+    .form-group{ display:grid; gap:.4rem; }
+    .form-group label{ font-weight:700; color:var(--dark); }
+    .form-group label .required{ color:var(--primary-red); }
+    .form-group input,.form-group select{
+      padding:.7rem .8rem; border:1px solid #ddd; border-radius:8px; font-size:1rem; transition:border-color .2s, box-shadow .2s;
+    }
+    .form-group input:focus,.form-group select:focus{ outline:none; border-color:var(--primary-red); box-shadow:0 0 0 3px rgba(185,28,28,.12); }
+    .checkbox-group{ display:flex; align-items:center; gap:.5rem; margin:.4rem 0; }
+    .calc-buttons{ display:flex; gap:1rem; justify-content:center; margin-top:1.2rem; }
+    .btn-calc-primary{ background:var(--primary-red); color:#fff; border:0; padding:.9rem 1.6rem; border-radius:999px; font-weight:800; cursor:pointer; }
+    .btn-calc-primary:hover{ filter:brightness(.95); }
+    .btn-calc-secondary{ background:var(--accent-green); color:#fff; border:0; padding:.9rem 1.6rem; border-radius:999px; font-weight:800; cursor:pointer; }
+    .btn-calc-secondary:hover{ filter:brightness(.96); }
+    .price-result{ display:none; background:#fff; padding:1.2rem; border-radius:12px; margin-top:1.2rem; text-align:center; border:2px solid var(--accent-green); }
+    .price-result.show{ display:block; animation:fadeInUp .4s ease; }
+    .price-amount{ font-size:2.1rem; color:var(--primary-red); font-weight:800; margin-top:.6rem; }
+    .progress-container{ background:#fff; padding:.8rem; border-radius:10px; margin-bottom:1rem; border:1px solid rgba(0,0,0,.05); }
+    .progress-bar{ display:grid; grid-template-columns:repeat(4,1fr); gap:.6rem; }
+    .progress-step{ text-align:center; }
+    .progress-step::before{
+      content:attr(data-step); display:block; width:30px; height:30px; margin:0 auto .4rem;
+      border-radius:50%; border:2px solid var(--primary-red); line-height:26px; font-weight:800; background:#fff;
+    }
+    .progress-step.active::before{ background:var(--primary-red); color:#fff; }
+    .progress-step span{ font-size:.9rem; color:var(--light-text); }
+
+    .cta{ padding:5.6rem 0; background:var(--gradient-dark); position:relative; overflow:hidden; }
+    .cta::before,.cta::after{ content:''; position:absolute; border-radius:50%; }
+    .cta::before{ width:520px; height:520px; background:rgba(251,191,36,.10); top:-260px; right:-260px; }
+    .cta::after{ width:420px; height:420px; background:rgba(185,28,28,.10); bottom:-210px; left:-210px; }
+    .cta-container{ max-width:1000px; margin:0 auto; padding:0 2rem; text-align:center; position:relative; z-index:1; }
+    .cta-title{ color:#fff; font-weight:800; font-size:clamp(1.8rem,4vw,2.4rem); margin-bottom:.6rem; }
+    .cta-description{ color:rgba(255,255,255,.85); max-width:700px; margin:0 auto 1.6rem; }
+    .cta-buttons{ display:flex; gap:1rem; justify-content:center; flex-wrap:wrap; }
+    .btn-hero-primary,.btn-hero-secondary{ text-decoration:none; padding:14px 22px; border-radius:999px; font-weight:800; }
+    .btn-hero-primary{ background:var(--primary-red); color:#fff; }
+    .btn-hero-secondary{ background:transparent; color:#fff; border:2px solid rgba(255,255,255,.2); }
+    .btn-hero-secondary:hover{ border-color:rgba(255,255,255,.4); }
+
+    footer{ background:var(--dark-blue); color:#fff; padding:3.6rem 0 2rem; }
+    .footer-container{ max-width:1200px; margin:0 auto; padding:0 2rem; }
+    .footer-grid{ display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:2.6rem; margin-bottom:2rem; }
+    .footer-brand h3{ display:flex; align-items:center; gap:.5rem; font-size:1.5rem; }
+    .footer-brand p{ color:rgba(255,255,255,.75); margin:.8rem 0 1.2rem; }
+    .footer-social{ display:flex; gap:.6rem; }
+    .social-link{ width:38px; height:38px; display:grid; place-items:center; border-radius:50%; background:rgba(255,255,255,.10); color:#fff; text-decoration:none; }
+    .social-link:hover{ background:var(--primary-red); }
+    .footer-column h4{ color:var(--gold); margin-bottom:.9rem; }
+    .footer-links{ list-style:none; }
+    .footer-links a{ color:rgba(255,255,255,.75); text-decoration:none; }
+    .footer-links a:hover{ color:#fff; }
+    .footer-bottom{ margin-top:1.2rem; padding-top:1.2rem; border-top:1px solid rgba(255,255,255,.12); text-align:center; color:rgba(255,255,255,.6); font-size:.95rem; }
+
+    @media (max-width:1024px){
+      .trust-container{ grid-template-columns:repeat(2,1fr); }
+      .footer-grid{ grid-template-columns:repeat(2,1fr); }
+      .about-content{ grid-template-columns:1fr; }
+      .timeline,.timeline-item,.timeline-item:nth-child(even){ text-align:left; padding-left:28px; padding-right:0; }
+      .timeline::before,.timeline-dot{ left:0; transform:translateX(0); }
+    }
+    @media (max-width:640px){
+      .trust-container,.footer-grid{ grid-template-columns:1fr; }
+      .hero{ padding:90px 5% 70px; min-height:70vh; }
+      .services-grid{ grid-template-columns:1fr; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav id="navbar" role="navigation" aria-label="Основна навигация">
+      <div class="nav-container">
+        <a href="#home" class="logo-container" aria-label="Начало — НАЙК">
+          <svg class="logo-svg" viewBox="0 0 100 100" aria-hidden="true">
+            <defs>
+              <linearGradient id="cloverGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" style="stop-color:#16a34a;stop-opacity:1" />
+                <stop offset="100%" style="stop-color:#14532d;stop-opacity:1" />
+              </linearGradient>
+            </defs>
+            <path fill="url(#cloverGradient)" d="M50 45 C40 45, 35 35, 35 30 C35 20, 45 15, 50 25 C55 15, 65 20, 65 30 C65 35, 60 45, 50 45"/>
+            <path fill="url(#cloverGradient)" d="M45 50 C45 40, 35 35, 30 35 C20 35, 15 45, 25 50 C15 55, 20 65, 30 65 C35 65, 45 60, 45 50"/>
+            <path fill="url(#cloverGradient)" d="M55 50 C55 60, 65 65, 70 65 C80 65, 85 55, 75 50 C85 45, 80 35, 70 35 C65 35, 55 40, 55 50"/>
+            <path fill="url(#cloverGradient)" d="M50 55 C60 55, 65 65, 65 70 C65 80, 55 85, 50 75 C45 85, 35 80, 35 70 C35 65, 40 55, 50 55"/>
+            <rect fill="#8B4513" x="48" y="50" width="4" height="20"/>
+          </svg>
+          <span class="logo-text">
+            <span class="logo-name">НАЙК</span>
+            <span class="logo-subtitle">Счетоводна къща</span>
+          </span>
+        </a>
+
+        <button class="hamburger" id="hamburger" aria-label="Меню" aria-controls="primary-menu" aria-expanded="false">
+          <span></span>
+        </button>
+
+        <ul id="primary-menu" class="nav-menu">
+          <li><a href="#home" class="nav-link">Начало</a></li>
+          <li><a href="#services" class="nav-link">Услуги</a></li>
+          <li><a href="#about" class="nav-link">За нас</a></li>
+          <li><a href="#calculator" class="nav-link">Цени</a></li>
+          <li><a href="#contact" class="nav-cta">Безплатна консултация</a></li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+  <main id="home" class="hero" tabindex="-1">
+    <div class="hero-content">
+      <h1>Счетоводна къща НАЙК</h1>
+      <p class="subtitle">Поверете счетоводството на експерти и се фокусирайте върху растежа на вашия бизнес</p>
+      <div class="badges">
+        <span class="badge family-business">Семейна счетоводна къща</span>
+        <span class="badge experience">20+ ГОДИНИ ОПИТ</span>
+      </div>
+      <p class="tagline">Стабилност и доверие пред институции и клиенти</p>
+      <div class="cta-buttons">
+        <a href="#contact" class="btn btn-primary">Свържете се с нас →</a>
+        <a href="#services" class="btn btn-secondary">Разгледайте услугите ↓</a>
+      </div>
+    </div>
+  </main>
+
+  <section class="trust-section" aria-label="Доверие и показатели">
+    <div class="trust-container">
+      <div class="trust-item">
+        <div class="trust-icon" aria-hidden="true">🏛️</div>
+        <div>
+          <div class="trust-label">Доверие от</div>
+          <div class="trust-value">НАП & НОИ</div>
+        </div>
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon" aria-hidden="true">🛡️</div>
+        <div>
+          <div class="trust-label">Защита</div>
+          <div class="trust-value">GDPR съвместимост</div>
+        </div>
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon" aria-hidden="true">⚡</div>
+        <div>
+          <div class="trust-label">Бърза реакция</div>
+          <div class="trust-value">До 24 часа</div>
+        </div>
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon" aria-hidden="true">🏢</div>
+        <div>
+          <div class="trust-label">Офиси</div>
+          <div class="trust-value">Ст. Загора & София</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="partners" aria-label="Партньори">
+    <h3 class="partners-title">Нашите партньори ни се доверяват</h3>
+    <div class="partners-container">
+      <div class="partners-track" aria-hidden="true">
+        <div class="partner-logo">Хотел България</div>
+        <div class="partner-logo">Транс-Европа</div>
+        <div class="partner-logo">Медицински Център</div>
+        <div class="partner-logo">Стройтех ООД</div>
+        <div class="partner-logo">IT Solutions</div>
+        <div class="partner-logo">Ресторант Българка</div>
+        <div class="partner-logo">Хотел България</div>
+        <div class="partner-logo">Транс-Европа</div>
+        <div class="partner-logo">Медицински Център</div>
+        <div class="partner-logo">Стройтех ООД</div>
+        <div class="partner-logo">IT Solutions</div>
+        <div class="partner-logo">Ресторант Българка</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="services" class="services">
+    <div class="services-container">
+      <div class="section-header">
+        <div class="section-label">НАШИТЕ УСЛУГИ</div>
+        <h2 class="section-title">Комплексни решения за вашия бизнес</h2>
+        <p class="section-description">Предлагаме пълен спектър от счетоводни и консултантски услуги, адаптирани към спецификата на вашата дейност</p>
+      </div>
+
+      <div class="services-grid">
+        <div class="service-card-premium" data-service="accounting">
+          <div class="service-icon-premium">📊</div>
+          <h3 class="service-title-premium">Пълно счетоводно обслужване</h3>
+          <p class="service-desc-premium">Цялостна грижа за счетоводството - от документооборот през ЗДДС и Интрастат до финансови отчети.</p>
+          <span class="service-link">Научете повече</span>
+        </div>
+
+        <div class="service-card-premium" data-service="online">
+          <div class="service-icon-premium">💻</div>
+          <h3 class="service-title-premium">Онлайн услуги</h3>
+          <p class="service-desc-premium">Дигитализация, електронни документи, дистанционно обслужване и сигурна комуникация в реално време.</p>
+          <span class="service-link">Научете повече</span>
+        </div>
+
+        <div class="service-card-premium" data-service="registration">
+          <div class="service-icon-premium">🏢</div>
+          <h3 class="service-title-premium">Регистрация на фирми</h3>
+          <p class="service-desc-premium">Пълно съдействие при регистрация, промени в Търговския регистър и корпоративно консултиране.</p>
+          <span class="service-link">Научете повече</span>
+        </div>
+
+        <div class="service-card-premium" data-service="tax">
+          <div class="service-icon-premium">💰</div>
+          <h3 class="service-title-premium">Данъчни консултации</h3>
+          <p class="service-desc-premium">Оптимизация, планиране и представителство пред НАП за максимална данъчна ефективност.</p>
+          <span class="service-link">Научете повече</span>
+        </div>
+
+        <div class="service-card-premium" data-service="oneTime">
+          <div class="service-icon-premium">📝</div>
+          <h3 class="service-title-premium">Еднократни услуги</h3>
+          <p class="service-desc-premium">Декларации, финансови отчети и консултации без необходимост от дългосрочен договор.</p>
+          <span class="service-link">Научете повече</span>
+        </div>
+
+        <div class="service-card-premium" data-service="risk">
+          <div class="service-icon-premium">🛡️</div>
+          <h3 class="service-title-premium">Оценка на риска</h3>
+          <p class="service-desc-premium">Финансов анализ, кредитоспособност и стратегии за управление на бизнес рисковете.</p>
+          <span class="service-link">Научете повече</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div id="serviceModal" class="modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="serviceModalTitle">
+    <div class="modal-content">
+      <button class="close-modal" id="closeModal" aria-label="Затвори">&times;</button>
+      <div id="modalContent"></div>
+    </div>
+  </div>
+
+  <section id="about" class="about">
+    <div class="container">
+      <div class="section-label">ЗА НАС</div>
+      <h2 class="section-title">За нас</h2>
+      <p class="section-description">Мисия и ценности: доверие, професионализъм, индивидуален подход</p>
+
+      <div class="about-content">
+        <div class="about-text">
+          <h3>Защо да изберете НАЙК</h3>
+          <p>Ние, екипът на <strong>счетоводна къща НАЙК</strong>, сме семейна счетоводна къща, изградена върху доверие, взаимопомощ и грижа. Това означава, че всеки клиент получава не само професионализъм, но и лично отношение, семейна грижа и любов към неговия бизнес.</p>
+          <p><strong>Дългогодишният ни опит е изградил доверие не само сред клиентите, но и пред институции като НАП, НОИ и Инспекция по труда.</strong></p>
+          <ul class="features-list">
+            <li>20+ години опит и доверие пред институции</li>
+            <li>Семейна структура - устойчивост и лоялност</li>
+            <li>Офиси в Стара Загора и скоро в София</li>
+            <li>GDPR защита и киберсигурност</li>
+            <li>Денонощно съдействие при бизнес казуси</li>
+            <li>Годишни финансови отчети с одитор</li>
+            <li>Бързи решения в рамките на 24 часа</li>
+            <li>Единна система на работа</li>
+          </ul>
+        </div>
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <h4>2003</h4>
+            <p>Основаване на фирмата</p>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <h4>2010</h4>
+            <p>Разширяване на екипа</p>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <h4>2020</h4>
+            <p>Дигитализация на услугите</p>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <h4>2025</h4>
+            <p>Нов офис в София</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="calculator" class="calculator">
+    <div class="container">
+      <h2 class="section-title">Калкулатор цени</h2>
+      <p class="section-description">Изчислете ориентировъчна месечна такса за счетоводно обслужване</p>
+
+      <div class="calc-form">
+        <div class="progress-container">
+          <div class="progress-bar">
+            <div class="progress-step active" data-step="1"><span>Фирма</span></div>
+            <div class="progress-step" data-step="2"><span>Дейност</span></div>
+            <div class="progress-step" data-step="3"><span>Персонал</span></div>
+            <div class="progress-step" data-step="4"><span>Резултат</span></div>
+          </div>
+        </div>
+
+        <form id="priceForm">
+          <div class="form-section">
+            <h3>Основни данни за фирмата</h3>
+            <div class="form-grid">
+              <div class="form-group">
+                <label>Име на фирмата <span class="required">*</span></label>
+                <input id="companyName" type="text" required/>
+              </div>
+              <div class="form-group">
+                <label>Град <span class="required">*</span></label>
+                <select id="city" required>
+                  <option value="">Изберете град</option>
+                  <option value="sofia">София</option>
+                  <option value="plovdiv">Пловдив</option>
+                  <option value="varna">Варна</option>
+                  <option value="burgas">Бургас</option>
+                  <option value="stara-zagora">Стара Загора</option>
+                  <option value="ruse">Русе</option>
+                  <option value="other">Друг</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Име за контакт</label>
+                <input id="contactName" type="text"/>
+              </div>
+              <div class="form-group">
+                <label>Email или Телефон <span class="required">*</span></label>
+                <input id="contactInfo" type="text" required/>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-section">
+            <h3>Юридически параметри</h3>
+            <div class="form-grid">
+              <div class="form-group">
+                <label>Правна форма <span class="required">*</span></label>
+                <select required id="legalForm">
+                  <option value="">Изберете</option>
+                  <option value="et">ЕТ</option>
+                  <option value="eood">ЕООД</option>
+                  <option value="ood">ООД</option>
+                  <option value="ad">АД</option>
+                  <option value="other">Друга</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Основна дейност <span class="required">*</span></label>
+                <select required id="mainActivity">
+                  <option value="">Изберете</option>
+                  <option value="trade">Търговия</option>
+                  <option value="services">Услуги</option>
+                  <option value="production">Производство</option>
+                  <option value="transport">Транспорт</option>
+                  <option value="other">Друга</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Регистрация по ДДС <span class="required">*</span></label>
+                <select required id="vatReg">
+                  <option value="">Изберете</option>
+                  <option value="yes">Да</option>
+                  <option value="no">Не</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Регистрация по OSS</label>
+                <select id="ossReg">
+                  <option value="">Изберете</option>
+                  <option value="yes">Да</option>
+                  <option value="no">Не</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-section">
+            <h3>Персонал и документооборот</h3>
+            <div class="form-grid">
+              <div class="form-group">
+                <label>Брой осигурени лица <span class="required">*</span></label>
+                <input type="number" min="0" required id="employees"/>
+              </div>
+              <div class="form-group">
+                <label>Брой фактури месечно <span class="required">*</span></label>
+                <select required id="invoices">
+                  <option value="">Изберете</option>
+                  <option value="0-100">0-100</option>
+                  <option value="101-300">101-300</option>
+                  <option value="301-600">301-600</option>
+                  <option value="601-900">601-900</option>
+                  <option value="900+">900+</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Брой банкови сметки <span class="required">*</span></label>
+                <input type="number" min="0" required id="bankAccounts"/>
+              </div>
+              <div class="form-group">
+                <label>Електронно банкиране</label>
+                <select id="eBanking">
+                  <option value="">Изберете</option>
+                  <option value="yes">Да</option>
+                  <option value="no">Не</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Брой касови апарати</label>
+                <input type="number" min="0" id="cashRegisters"/>
+              </div>
+              <div class="form-group">
+                <label>Брой търговски обекти</label>
+                <input type="number" min="0" id="locations"/>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-section">
+            <h3>Допълнителни услуги</h3>
+            <div class="checkbox-group">
+              <input type="checkbox" id="annual" value="50"/>
+              <label for="annual">Годишно приключване</label>
+            </div>
+            <div class="checkbox-group">
+              <input type="checkbox" id="report" value="30"/>
+              <label for="report">Подготовка на годишен финансов отчет</label>
+            </div>
+            <div class="checkbox-group">
+              <input type="checkbox" id="taxConsult" value="40"/>
+              <label for="taxConsult">Данъчни консултации</label>
+            </div>
+            <div class="checkbox-group">
+              <input type="checkbox" id="admin" value="20"/>
+              <label for="admin">Административни услуги</label>
+            </div>
+          </div>
+
+          <div class="calc-buttons">
+            <button type="button" class="btn-calc-primary" id="btnCalc">Изчисли цена</button>
+            <button type="button" class="btn-calc-secondary" id="btnInquiry">Изпрати запитване</button>
+          </div>
+        </form>
+
+        <div id="priceResult" class="price-result">
+          <h3>Ориентировъчна месечна такса</h3>
+          <div class="price-amount"><span id="priceFrom">0</span> - <span id="priceTo">0</span> лв.</div>
+          <p style="color: var(--light-text); margin-top:.6rem;">Цената е ориентировъчна. За точна оферта ще се свържем с вас в рамките на 24 часа.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta">
+    <div class="cta-container">
+      <h2 class="cta-title">Поверете счетоводството на експерти</h2>
+      <p class="cta-description">Фокусирайте се върху растежа на бизнеса си, докато ние се грижим за финансовата ви стабилност и съответствие със законодателството.</p>
+      <div class="cta-buttons">
+        <a href="#contact" class="btn-hero-primary">Получете безплатна консултация</a>
+        <a href="#calculator" class="btn-hero-secondary">Изчислете цена онлайн</a>
+      </div>
+    </div>
+  </section>
+
+  <footer id="contact">
+    <div class="footer-container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <h3>🍀 НАЙК</h3>
+          <p>Семейна счетоводна къща с 20+ години опит, изградена върху доверие, взаимопомощ и професионализъм. Вашият надежден партньор за устойчив бизнес растеж.</p>
+          <div class="footer-social">
+            <a href="#" class="social-link" aria-label="Facebook">f</a>
+            <a href="#" class="social-link" aria-label="LinkedIn">in</a>
+            <a href="#" class="social-link" aria-label="Email">@</a>
+          </div>
+        </div>
+        <div class="footer-column">
+          <h4>Услуги</h4>
+          <ul class="footer-links">
+            <li><a href="#services">Счетоводно обслужване</a></li>
+            <li><a href="#services">Данъчни консултации</a></li>
+            <li><a href="#services">Онлайн услуги</a></li>
+            <li><a href="#services">Регистрация на фирми</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h4>Компания</h4>
+          <ul class="footer-links">
+            <li><a href="#about">За нас</a></li>
+            <li><a href="#calculator">Цени</a></li>
+            <li><a href="#contact">Контакти</a></li>
+            <li><a href="#">Политика за поверителност</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h4>Контакти</h4>
+          <ul class="footer-links">
+            <li>📍 Стара Загора, бул. Цар Симеон Велики 25</li>
+            <li>📞 042 605 155</li>
+            <li>✉️ naik_vkp_ood@abv.bg</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2025 Счетоводна къща НАЙК. Всички права запазени. | 20+ години доверие и професионализъм</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const serviceDetails = {
+      accounting:{
+        title:'Пълно счетоводно обслужване',
+        content:`
+          <h2 id="serviceModalTitle">Пълно счетоводно обслужване</h2>
+          <p><strong>Какво представлява:</strong></p>
+          <p>Пълното счетоводно обслужване е основата за стабилното и прозрачно развитие на всеки бизнес. То обхваща всички процеси по обработка, осчетоводяване и анализ на финансовите данни.</p>
+          <h3 style="color:var(--primary-red); margin-top:1rem;">Основни акценти</h3>
+          <ul class="features-list">
+            <li>Индивидуален сметкоплан</li>
+            <li>Обработка и осчетоводяване на документи</li>
+            <li>Справки-декларации към институции</li>
+          </ul>
+          <h3 style="color:var(--primary-red); margin-top:1rem;">Подробности за услугата</h3>
+          <ul class="features-list">
+            <li>Оборотни ведомости</li>
+            <li>ЗДДС, VIES, Интрастат</li>
+            <li>Годишни финансови отчети</li>
+            <li>Данъчни консултации и анализ</li>
+          </ul>
+        `
+      },
+      online:{
+        title:'Онлайн услуги',
+        content:`
+          <h2 id="serviceModalTitle">Онлайн услуги</h2>
+          <p><strong>Какво представлява:</strong></p>
+          <p>Онлайн услугите дават възможност за бърза, сигурна и удобна дистанционна връзка със счетоводната къща.</p>
+          <ul class="features-list">
+            <li>Електронно подаване на документи</li>
+            <li>Дистанционно обслужване</li>
+            <li>Сигурна онлайн комуникация</li>
+          </ul>
+        `
+      },
+      registration:{
+        title:'Регистрация на фирми',
+        content:`
+          <h2 id="serviceModalTitle">Регистрация на фирми</h2>
+          <p><strong>Какво представлява:</strong></p>
+          <p>Регистрацията на фирма е първата стъпка към успешното развитие на вашия бизнес.</p>
+          <ul class="features-list">
+            <li>Регистрация и пререгистрация</li>
+            <li>Подготовка и подаване на документи</li>
+            <li>Правни консултации</li>
+          </ul>
+        `
+      },
+      oneTime:{
+        title:'Еднократни услуги',
+        content:`
+          <h2 id="serviceModalTitle">Еднократни счетоводни услуги</h2>
+          <p><strong>Какво представлява:</strong></p>
+          <p>Подходящи за клиенти без абонаментен договор, които имат нужда от бързо решение на конкретен въпрос.</p>
+          <ul class="features-list">
+            <li>Данъчни декларации</li>
+            <li>Финансови отчети</li>
+            <li>Специализирани справки</li>
+          </ul>
+        `
+      },
+      tax:{
+        title:'Данъчни консултации',
+        content:`
+          <h2 id="serviceModalTitle">Данъчни консултации</h2>
+          <p><strong>Какво представлява:</strong></p>
+          <p>Оптимизация на данъчната политика и минимизиране на риска от санкции.</p>
+          <ul class="features-list">
+            <li>Планиране и оптимизация</li>
+            <li>Представителство пред НАП</li>
+            <li>Международно данъчно право</li>
+          </ul>
+        `
+      },
+      risk:{
+        title:'Оценка на риска',
+        content:`
+          <h2 id="serviceModalTitle">Оценка на риска</h2>
+          <p><strong>Какво представлява:</strong></p>
+          <p>Задълбочен финансово-счетоводен анализ за идентифициране и минимизиране на бизнес рискове.</p>
+          <ul class="features-list">
+            <li>Финансов анализ</li>
+            <li>Кредитоспособност</li>
+            <li>Стратегии за управление</li>
+          </ul>
+        `
+      }
+    };
+
+    function openServiceModal(service){
+      const modal = document.getElementById('serviceModal');
+      const content = document.getElementById('modalContent');
+      content.innerHTML = serviceDetails[service]?.content || '';
+      modal.setAttribute('aria-hidden','false');
+      document.body.style.overflow='hidden';
+    }
+    function closeServiceModal(){
+      const modal = document.getElementById('serviceModal');
+      modal.setAttribute('aria-hidden','true');
+      document.body.style.overflow='';
+    }
+
+    document.addEventListener('click', (e)=>{
+      const modal = document.getElementById('serviceModal');
+      if(e.target.id==='serviceModal') closeServiceModal();
+    });
+
+    document.addEventListener('DOMContentLoaded', ()=>{
+      const navbar = document.getElementById('navbar');
+      const hamburger = document.getElementById('hamburger');
+      const menu = document.getElementById('primary-menu');
+      const closeBtn = document.getElementById('closeModal');
+
+      window.addEventListener('scroll', ()=>{
+        if(window.scrollY>50) navbar.classList.add('scrolled'); else navbar.classList.remove('scrolled');
+      });
+
+      hamburger.addEventListener('click', ()=>{
+        const expanded = hamburger.getAttribute('aria-expanded')==='true';
+        hamburger.setAttribute('aria-expanded', String(!expanded));
+        menu.classList.toggle('open');
+      });
+
+      closeBtn.addEventListener('click', closeServiceModal);
+
+      document.querySelectorAll('a[href^="#"]').forEach(anchor=>{
+        anchor.addEventListener('click', (e)=>{
+          const href = anchor.getAttribute('href');
+          if(!href || href==='#') return;
+          const target = document.querySelector(href);
+          if(target){
+            e.preventDefault();
+            target.scrollIntoView({ behavior:'smooth', block:'start' });
+            menu.classList.remove('open');
+            hamburger.setAttribute('aria-expanded','false');
+          }
+        });
+      });
+
+      const observer = new IntersectionObserver((entries)=>{
+        entries.forEach(entry=>{
+          if(entry.isIntersecting){
+            entry.target.style.opacity='1';
+            entry.target.style.transform='translateY(0)';
+          }
+        });
+      }, { threshold:0.1, rootMargin:'0px 0px -50px 0px' });
+
+      document.querySelectorAll('.service-card-premium').forEach(card=>{
+        card.style.opacity='0';
+        card.style.transform='translateY(20px)';
+        card.style.transition='all 0.6s ease';
+        observer.observe(card);
+        card.addEventListener('click', ()=>{
+          const id = card.dataset.service; if(id) openServiceModal(id);
+        });
+      });
+
+      function calculatePrice(){
+        let basePrice = 100;
+        const legalForm = document.getElementById('legalForm').value;
+        if(legalForm==='ood' || legalForm==='ad') basePrice += 50;
+        if(legalForm==='eood') basePrice += 30;
+
+        const activity = document.getElementById('mainActivity').value;
+        if(activity==='production') basePrice += 80;
+        if(activity==='trade') basePrice += 40;
+        if(activity==='transport') basePrice += 60;
+
+        if(document.getElementById('vatReg').value==='yes') basePrice += 100;
+        if(document.getElementById('ossReg').value==='yes') basePrice += 50;
+
+        const employees = parseInt(document.getElementById('employees').value)||0; basePrice += employees*25;
+        const invoices = document.getElementById('invoices').value;
+        if(invoices==='101-300') basePrice += 50;
+        if(invoices==='301-600') basePrice += 100;
+        if(invoices==='601-900') basePrice += 150;
+        if(invoices==='900+') basePrice += 200;
+
+        const bankAccounts = parseInt(document.getElementById('bankAccounts').value)||0; basePrice += bankAccounts*10;
+        if(document.getElementById('eBanking').value==='yes') basePrice += 20;
+        const cashRegisters = parseInt(document.getElementById('cashRegisters').value)||0; basePrice += cashRegisters*15;
+        const locations = parseInt(document.getElementById('locations').value)||0; basePrice += locations*30;
+
+        document.querySelectorAll('input[type="checkbox"]:checked').forEach(cb=>{ basePrice += parseInt(cb.value)||0; });
+
+        const priceFrom = Math.round(basePrice*0.9);
+        const priceTo = Math.round(basePrice*1.1);
+        document.getElementById('priceFrom').textContent = priceFrom;
+        document.getElementById('priceTo').textContent = priceTo;
+        document.getElementById('priceResult').classList.add('show');
+
+        document.querySelectorAll('.progress-step').forEach(step=> step.classList.add('active'));
+      }
+
+      function sendInquiry(){
+        alert('Вашето запитване е изпратено! Ще се свържем с вас в рамките на 24 часа.');
+      }
+
+      document.getElementById('btnCalc').addEventListener('click', calculatePrice);
+      document.getElementById('btnInquiry').addEventListener('click', sendInquiry);
+    });
+  </script>
+</body>
+</html>
